@@ -6,9 +6,7 @@ from datetime import datetime
 import requests
 
 def get_response():
-    
-    #url = "https://api.chucknorris.io/jokes/random"
-    url = "https://evilinsult.com/generate_insult.php?lang=en&type=json"
+     url = "https://evilinsult.com/generate_insult.php?lang=en&type=json"
     querystring = {"query":"insult"}
     headers = {"accept": "application/json"}
     response = requests.get(url, headers=headers, params=querystring)
