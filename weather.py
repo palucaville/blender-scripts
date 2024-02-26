@@ -1,19 +1,18 @@
 
-
 ## weather.py   fetch weather info (temp, wind, conditions) of a given town.
 # draw the info using temperature as Z axis and wind speed as Y axis.
-# create and assigb a random material.
+# create and assign a random material.
 
 import bpy
 import requests
 import json
 import random
 from mathutils import Color
-
+from datetime import datetime
 
 def get_response(place):
     
-    url = "https://api.weatherapi.com/v1/current.json?key=MYAPIKEY"
+    url = "https://api.weatherapi.com/v1/current.json?key=getyourownkey"
     header = {"accept": "application/json"}
     query = {"q":(place)} # use % if need blank space
     response = requests.get(url, query)
@@ -30,8 +29,8 @@ def create_AP(place):
             is_day = (current[key])
         if key in "temp_c":
             temp_c = (current[key])
-        if key in "temp_f":
-            temp_f = (current[key])
+        if key in "humidity":
+            humidity = (current[key])
         if key in "wind_kph":
             wind_kph = (current[key])
         if key in "last_updated":
@@ -48,11 +47,15 @@ def create_AP(place):
             country = (location[key])
         if key in "localtime":
             localtime = (location[key])
-
+        if key in "tz_id":
+            tz_id = (location[key])
     cond = condition["text"]
-    nl = "\nl"
+    nl = "  \nl  "
+      # Getting the current date and time
+    datt = datetime.today().strftime('%Y-%m-%d-%H:%M:%S')
+    dt =str(datt)
     ## put together the string to pass to Blender
-    AP = f" {name}{nl}{region}{nl}{country}{nl}localtime {localtime}{nl}Updated: {last_updated}{nl}{cond} {nl}Temp C: {temp_c}{nl}{nl}Wind KPH: {wind_kph}{nl}Sunlight:(0/1):{is_day}"
+    AP = f" {name}{nl}{nl}{region}{nl}{country}{nl}Timezone: {tz_id}{nl}Sys time: {dt}{nl}localtime {localtime}{nl}Updated: {last_updated}{nl}{cond} {nl}Temp C: {temp_c}{nl}Wind KPH: {wind_kph}{nl}Humidity: {humidity}%"
     
     ### BLENDER
     font_curve = bpy.data.curves.new(type="FONT", name=(name))
@@ -60,24 +63,23 @@ def create_AP(place):
     obj = bpy.data.objects.new(name=(name), object_data=font_curve)
 
       # -- Set scale and location
-    newYZ = (temp_c)
-    newX = (wind_kph)/2
-    obj.location = ((newX), 0, (newYZ)) # move on the Z axis reprenting temperature
-    obj.scale = (1, 1, 1)
+    newZ = (temp_c)
+    newX = (wind_kph)/2.5
     
+    obj.location = ((newX), 0, (newZ))
+    obj.scale = (1, 1, 1)
     bpy.context.scene.collection.objects.link(obj)
     random_material = create_random_material()
-    #selected_objects = bpy.context.selected_objects
-    #bpy.ops.transform.translate(value=(0, -1, -5))
-    # Assign the random material to all selected objects
-    #for obj in selected_objects:
-    if obj.type == 'FONT':
-        if obj.data.materials:
-            # If the object already has materials, replace the first one with the random material
-            obj.data.materials[0] = random_material
-        else:
-            # If the object doesn't have any materials, create a new one and assign it
-            obj.data.materials.append(random_material)
+    obj.data.materials.append(random_material)
+    
+    # Create a new cube
+
+    bpy.ops.mesh.primitive_cube_add()
+    cube = bpy.context.object
+    cube.location = (0, 0, (newZ))
+    cube.scale =(0.5, 0.5, 0.1)
+    cube.data.materials.append(random_material)
+    bpy.context.object.name = (name)
     # Update the view
     bpy.context.view_layer.update()
 
@@ -101,52 +103,12 @@ def create_random_material():
 
     return material  
  
-#    #comment this out if you don't want the background node changed
-#    if (is_day) == 1:
-#        bpy.data.worlds["World"].node_tree.nodes["Background"].inputs[1].default_value = 1.2
-#    else:
-#        bpy.data.worlds["World"].node_tree.nodes["Background"].inputs[1].default_value = 0.6
-#    #create_light(is_day)
-#    pass
-
-#def create_light(isday):
-#    
-#    # create light datablock, set attributes
-#    light_data = bpy.data.lights.new(name="light_2", type='POINT')
-#    if (isday) == 1:
-#            bpy.data.worlds["World"].node_tree.nodes["Background"].inputs[1].default_value = 1.2
-
-#    else:
-#            bpy.data.worlds["World"].node_tree.nodes["Background"].inputs[1].default_value = 0.6
-# 
-#    # create new object with our light datablock
-#    light_object = bpy.data.objects.new(name="daylight", object_data=light_data)
-#    # link light object
-#    bpy.context.collection.objects.link(light_object)
-#    # make it active 
-#    bpy.context.view_layer.objects.active = light_object
-#    #change location
-#    light_object.location = (2, 2, 5)
-
-#    # update scene, if needed
-#    dg = bpy.context.evaluated_depsgraph_get() 
-#    dg.update()
-#    pass
-
-#town = "London"
-#town = "New%York"
-#town = "Dublin"
-#town = "Berlin"
-#town = "Valletta"
-#town = "Los%Angeles"
-#town = "Miami"
-#town = "Cairo"
-town = "Mexico%City"
+town = "London"
 create_AP(town)
  
 ###  or all together
 #
-#towns =("London","Beijing","Berlin","New%York","Seattle","Los%Angeles","Cairo","Moscow","Sydney","Seoul","Kyoto","Rome","Mexico%City","Reykjavik")
+#towns =("Anchorage","London","Beijing","Berlin","New%York","Seattle","Los%Angeles","Cairo","Moscow","Sydney","Seoul","Kyoto","Rome","Mexico%City","Reykjavik")
 #for town in towns:
 #    create_AP(town)
 
