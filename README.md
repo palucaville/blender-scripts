@@ -12,4 +12,5 @@ A Blender script fetching from api.weatherapi.com/v1/current.json
 fetch weather info (temp, wind, conditions) of a given town.
 draw the info using temperature as Z axis and wind speed as Y axis.
 create and assign a random material.
-[https://youtu.be/Uf2gkpIrzSk](https://youtu.be/8AZPu8Egmvo)https://youtu.be/8AZPu8Egmvo
+
+https://youtu.be/8AZPu8Egmvo
