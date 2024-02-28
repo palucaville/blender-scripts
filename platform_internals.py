@@ -8,7 +8,6 @@ import platform
 import random
 import psutil
 
-
 def create_random_material():
     # Create a new material
     material = bpy.data.materials.new(name="Random Material")
@@ -37,10 +36,7 @@ def push_scene():
     # Move the selected objects 5 units on the y-axis
     bpy.ops.transform.translate(value=(0, 0, -5))
 
-
-
 nl =  ' \n '
-
 internals = platform.uname()
 nname = (f"Net name: {platform.node()[:15]}") #hostname
 cpu_type = (f"Processor type: {platform.processor()}")
@@ -64,21 +60,14 @@ usage_RAM =(f"RAM usage: {psutil.virtual_memory().percent}%")
 BB = f'{nname}{nl}{avail_RAM}{nl}{used_RAM}{nl}{usage_RAM}{nl}{os_cc}{nl}{os_dd}{nl}{os_vv}{nl}Compiler: {ff}{nl}Python ver: {hh}{nl}Implement: {gg}{nl}{cpu_type}{nl}CPU frequency: {round(CPU_freq)}{nl}CPU cores:{phy_cores}{nl}Logic cores: {log_cores}{nl}{inst_RAM}{nl}'
 
 #print (BB)
-
-
 ### BLENDER  
-  
 font_curve = bpy.data.curves.new(type="FONT", name=("internals"))
 font_curve.body = BB 
 obj = bpy.data.objects.new(name=("internals"), object_data=font_curve)
 obj.location = (-30, 10, 5)
 obj.scale = (1.5, 1.5, 1.5)
-   
 bpy.context.scene.collection.objects.link(obj)
 random_material = create_random_material()
 obj.data.materials.append(random_material)
 push_scene()
 bpy.ops.object.select_all(action='DESELECT')
-
-
- 
