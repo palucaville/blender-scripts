@@ -2,7 +2,6 @@
 #### Blender script to get informations about the host computer using the "patform" and "psutil" modules.
 #### Network name, Ram usage, CPU type/cores/frequency, OS type/version.
 ####
-
 import bpy
 import platform
 import random
