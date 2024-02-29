@@ -26,14 +26,12 @@ create and assign a random material.
 
 Blender 3.6 python scripts. 
 -  **ask_new_node.py** : calls TOR for a new identity (node).
-  - **geolocate.py** : the Public IP calling "httpbin.org/ip" and then "geo.ipify.org/api/v2/country,city?apikey"  info.
-  -  **geolocate_tor.py:**  the TOR IP address and info using sock5 session with "requests" .
--  **platform_internals.py:** informations about the host computer using the "p'atform" and "psutil" modules. Network name, Ram usage, CPU, OS.
-https://youtu.be/1KZkDTQENWg
+- **geolocate.py** : the Public IP calling "httpbin.org/ip" and then "geo.ipify.org/api/v2/country,city?apikey"  info.
+ -  **geolocate_tor.py:**  the TOR IP address and info using sock5 session with "requests" .
+-  **platform_internals.py:** informations about the host computer using the "platform" and "psutil" modules. Network name, Ram usage, CPU, OS.
+
+[https://youtu.be/1KZkDTQENWg](https://youtu.be/1KZkDTQENWg)
 
 
  
-## **platform_internals.py**
 
-Blender script to get informations about the host computer using the "patform" and "psutil" modules.
-Network name, Ram usage, CPU type/cores/frequency, OS type/version.
