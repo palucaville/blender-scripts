@@ -22,13 +22,16 @@ create and assign a random material.
 [https://youtu.be/8AZPu8Egmvo](https://youtu.be/P-3MIEQzlt8)
 
 
-## **geolocate.py**
 
-Blender 3.6 script to get and display:
-the Public IP calling "httpbin.org/ip" and then "geo.ipify.org/api/v2/country,city?apikey" 
-the TOR IP address and info using socket session with "requests" 127.0.0.1:9050
 
-[https://youtu.be/0WZZvzC5zZE](https://youtu.be/0WZZvzC5zZE) (geolocate and internals)
+Blender 3.6 python scripts. 
+-  **ask_new_node.py** : calls TOR for a new identity (node).
+  - **geolocate.py** : the Public IP calling "httpbin.org/ip" and then "geo.ipify.org/api/v2/country,city?apikey"  info.
+  -  **geolocate_tor.py:**  the TOR IP address and info using sock5 session with "requests" .
+-  **platform_internals.py:** informations about the host computer using the "p'atform" and "psutil" modules. Network name, Ram usage, CPU, OS.
+https://youtu.be/1KZkDTQENWg
+
+
  
 ## **platform_internals.py**
 
