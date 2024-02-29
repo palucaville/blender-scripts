@@ -88,7 +88,7 @@ def push_scene():
 ## CAREFUL!!!  public IP NON-tor below!!!
 def get_ip_info(raw_ip):
     try:
-        ipify = requests.get("https://geo.ipify.org/api/v2/country,city?apiKey=at_YQut6Iu34iOA6O6cC00thRmi1zL0L")
+        ipify = requests.get("https://geo.ipify.org/api/v2/country,city?apiKey=L0L")
         return (ipify.json())
     except requests.RequestException:
         print("Exception occurred: ")
